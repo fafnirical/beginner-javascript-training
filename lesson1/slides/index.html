@@ -24,8 +24,93 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Beginner JavaScript Training</h1>
+					<p>Wade Burelbach and Alex Ford</p>
+				</section>
+				<section>
+					<h2>Introductions</h2>
+				</section>
+				<section>
+					<section>
+						<h2>Variables</h2>
+					</section>
+					<section>
+						<h3>The <code>var</code> statement</h3>
+						<p>The "old" (ES5) way of declaring variables</p>
+						<pre><code data-trim class="lang-js">
+							var a;
+							var b = 1;
+						</code></pre>
+					</section>
+					<section>
+						<h3>The <code>let</code> statement</h3>
+						<p>The "new" (ES6) way of declaring (block-scoped) variables</p>
+						<pre><code data-trim class="lang-js">
+							function varTest() {
+								var x = 1;
+								if (true) {
+									var x = 2; // same variable!
+									console.log(x); // 2
+								}
+								console.log(x); // 2
+							}
+
+							function letTest() {
+								let x = 1;
+								if (true) {
+									let x = 2; // different variable
+									console.log(x); // 2
+								}
+								console.log(x); // 1
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>Block scope</h3>
+						<p>TODO: Add some description here.</p>
+						<pre><code data-trim class="lang-js">
+							function varTest() { // begin new block + function scope
+								var x = 1;
+								if (true) { // begin new block scope
+									// `var` is function-scoped
+									var x = 2; // same variable
+									console.log(x);
+								}
+								console.log(x);
+							}
+
+							function letTest() { // begin new block + function scope
+								let x = 1;
+								if (true) { // begin new block scope
+									// `let` is block-scoped
+									let x = 2; // different variable
+									console.log(x);
+								}
+								console.log(x);
+							}
+						</code></pre>
+					</section>
+					<section>
+						<h3>The <code>const</code> statement</h3>
+						<p>Declaring constants</p>
+						<pre><code data-trim class="lang-js">
+							const a = 1;
+							a = 5; // TypeError: Assignment to constant variable.
+						</code></pre>
+					</section>
+					<section>
+						<h3>Always declare your variables</h3>
+						<p>Assigning a variable that isn't declared creates an implicit global variable.</p>
+						<div class="fragment">
+							<p><strong>Don't do this.</strong></p>
+							<pre><code data-trim class="lang-js">
+								undeclared = 30;
+								console.log(window.undeclared); // 30
+							</code></pre>
+						</div>
+					</section>
+				</section>
 			</div>
 		</div>
 
