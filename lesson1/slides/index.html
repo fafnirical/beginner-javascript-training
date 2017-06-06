@@ -44,31 +44,53 @@
 						</code></pre>
 					</section>
 					<section>
-						<h3>The <code>let</code> statement</h3>
-						<p>The "new" (ES6) way of declaring (block-scoped) variables</p>
+						<h3>Always declare your variables</h3>
+						<p>Assigning a variable that isn't declared creates an implicit global variable.</p>
+						<div class="fragment">
+							<p><strong>Don't do this.</strong></p>
+							<pre><code data-trim class="lang-js">
+								undeclared = 30;
+								console.log(window.undeclared); // 30
+							</code></pre>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Functions</h2>
+					</section>
+					<section>
+						<h3>Defining a function in JS</h3>
 						<pre><code data-trim class="lang-js">
-							function varTest() {
-								var x = 1;
-								if (true) {
-									var x = 2; // same variable!
-									console.log(x); // 2
-								}
-								console.log(x); // 2
-							}
-
-							function letTest() {
-								let x = 1;
-								if (true) {
-									let x = 2; // different variable
-									console.log(x); // 2
-								}
-								console.log(x); // 1
+							function square(number) {
+								return number * number;
 							}
 						</code></pre>
 					</section>
 					<section>
+						<h3>Function scope</h3>
+						<p>Variables declared inside a function cannot be accessed outside the function.</p>
+						<pre><code data-trim class="lang-js">
+							var myNumber = 5;
+
+							function square(number) {
+								var theSquare = number * number;
+								return theSquare;
+							}
+
+							var mySquare = square(myNumber);
+							console.log(mySquare); // 25
+							console.log(theSquare); // ReferenceError: theSquare is not defined
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Variables in modern JavaScript</h2>
+					</section>
+					<section>
 						<h3>Block scope</h3>
-						<p>TODO: Add some description here.</p>
+						<p>Scope that isn't limited just to functions, but to any sort of block (<code>if</code>, <code>for</code>, <code>while</code>, etc.)</p>
 						<pre><code data-trim class="lang-js">
 							function varTest() { // begin new block + function scope
 								var x = 1;
@@ -92,23 +114,35 @@
 						</code></pre>
 					</section>
 					<section>
+						<h3>The <code>let</code> statement</h3>
+						<p>The "new" (ES6) way of declaring (block-scoped) variables</p>
+						<pre><code data-trim class="lang-js">
+							function varTest() {
+								var x = 1;
+								if (true) {
+									var x = 2; // same variable!
+									console.log(x); // 2
+								}
+								console.log(x); // 2
+							}
+
+							function letTest() {
+								let x = 1;
+								if (true) {
+									let x = 2; // different variable
+									console.log(x); // 2
+								}
+								console.log(x); // 1
+							}
+						</code></pre>
+					</section>
+					<section>
 						<h3>The <code>const</code> statement</h3>
 						<p>Declaring constants</p>
 						<pre><code data-trim class="lang-js">
 							const a = 1;
-							a = 5; // TypeError: Assignment to constant variable.
+							a = 5; // TypeError: Assignment to constant variable
 						</code></pre>
-					</section>
-					<section>
-						<h3>Always declare your variables</h3>
-						<p>Assigning a variable that isn't declared creates an implicit global variable.</p>
-						<div class="fragment">
-							<p><strong>Don't do this.</strong></p>
-							<pre><code data-trim class="lang-js">
-								undeclared = 30;
-								console.log(window.undeclared); // 30
-							</code></pre>
-						</div>
 					</section>
 				</section>
 			</div>
