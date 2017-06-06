@@ -145,6 +145,109 @@
 						</code></pre>
 					</section>
 				</section>
+				<section>
+					<section>
+						<h2>Arrays</h2>
+						<p>Ordered lists of values</p>
+					</section>
+					<section>
+						<h3>Defining an array in JS</h3>
+						<pre><code data-trim class="lang-js">
+							let fruits = ['Apple', 'Banana'];
+
+							console.log(fruits.length); // 2
+						</code></pre>
+					</section>
+					<section>
+						<h3>Accessing items in an array</h3>
+						<pre><code data-trim class="lang-js">
+							let fruits = ['Apple', 'Banana'];
+
+							let first = fruits[0]; // Apple
+							let last = fruits[fruits.length - 1]; // Banana
+						</code></pre>
+					</section>
+					<section>
+						<h3>Adding values to an array</h3>
+						<pre><code data-trim class="lang-js">
+							let fruits = ['Apple', 'Banana'];
+							let length = fruits.length; // 2
+
+							// Adding to the end of an array
+							length = fruits.push('Orange'); // 3
+							// ['Apple', 'Banana', 'Orange']
+
+							// Adding to the front of an array
+							length = fruits.unshift('Strawberry'); // 4
+							// ['Strawberry', 'Apple', 'Banana', 'Orange']
+						</code></pre>
+					</section>
+					<section>
+						<h3>Removing values from an array</h3>
+						<pre><code data-trim class="lang-js">
+							let fruits = ['Apple', 'Banana', 'Orange'];
+
+							// Removing from the end of an array
+							let last = fruits.pop(); // Orange
+							// ['Apple', 'Banana']
+
+							// Removing from the beginning of an array
+							let first = fruits.shift(); // Apple
+							// ['Banana']
+
+							// Removing an item by index position
+							let removedItem = fruits.splice(0, 1); // Banana
+							// []
+						</code></pre>
+					</section>
+					<section>
+						<h3>Looping through an array</h3>
+						<pre><code data-trim class="lang-js">
+							let fruits = ['Apple', 'Banana'];
+
+							// use `Array.forEach` if you need to access each item
+							fruits.forEach(function (item, index, array) {
+								console.log(item, index);
+							});
+
+							// use `Array.map` if you need to modify each item
+							fruits.map(function (item, index, array) {
+								return item.toLowerCase();
+							});
+						</code></pre>
+					</section>
+					<section>
+						<h3>Searching an array</h3>
+						<pre><code data-trim class="lang-js">
+							let foo = ['bar', 'baz'];
+
+							console.log(foo.indexOf('bar')); // 0
+							console.log(foo.indexOf('baz')); // 1
+
+							console.log(foo.indexOf('bat')); // -1 (not found)
+						</code></pre>
+						<p>Related methods:</p>
+						<ul>
+							<li><code>Array.lastIndexOf()</code></li>
+							<li><code>Array.includes()</code></li>
+						</ul>
+					</section>
+					<section>
+						<h3>Combining arrays</h3>
+						<pre><code data-trim class="lang-js">
+							let foo = ['bar', 'baz'];
+							let bar = ['bat', 'foobar'];
+
+							let foobar = foo.concat(bar);
+						</code></pre>
+					</section>
+					<section>
+						<h3>Additional Array resources</h3>
+						<ul>
+							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array on MDN</a></li>
+						</ul>
+					</section>
+				</section>
 			</div>
 		</div>
 
