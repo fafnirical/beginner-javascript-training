@@ -248,6 +248,71 @@
 						</ul>
 					</section>
 				</section>
+				<section>
+					<section>
+						<h2>Objects</h2>
+						<p>In JavaScript, most things are objects.</p>
+					</section>
+					<section>
+						<h3>What are Objects in JavaScript?</h3>
+						<ul>
+							<li>Objects are dynamic collections of properties</li>
+							<li>Properties are associations between a name (key) and a value</li>
+							<li>Objects in JavaScript are similar to <code>stdClass</code> in PHP</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Defining an Object in JavaScript</h3>
+						<pre><code data-trim class="lang-js">
+							let myCar = new Object();
+							myCar.make = 'Ford';
+							myCar.model = 'Mustang';
+							myCar.year = 1969;
+							myCar.revEngine = function() {
+								console.log('VROOM VROOM!');
+							};
+						</code></pre>
+					</section>
+					<section>
+						<h3>Square bracket notation</h3>
+						<p>You can also assign properties with square bracket notation</p>
+						<pre><code data-trim class="lang-js">
+							let myCar = new Object();
+							myCar['make'] = 'Ford';
+							myCar['model'] = 'Mustang';
+							myCar['year'] = 1969;
+							myCar['revEngine'] = function() {
+								console.log('VROOM VROOM!');
+							};
+
+							let variableProperty = 'color';
+							myCar[variableProperty] = 'red';
+
+							console.log(myCar);
+						</code></pre>
+						<p>Square bracket notation is the only way to add variable property names</p>
+					</section>
+					<section>
+						<h3>Creating new objects with object literal notation</h3>
+						<p>The most common way to create an object in JS</p>
+						<pre><code data-trim class="lang-js">
+							let myCar = {
+								make: 'Ford',
+								model: 'Mustang',
+								year: 1969,
+								revEngine: function() {
+									console.log('VROOM VROOM!');
+								},
+							};
+						</code></pre>
+					</section>
+					<section>
+						<h3>Additional Object resources</h3>
+						<ul>
+							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object on MDN</a></li>
+						</ul>
+					</section>
+				</section>
 			</div>
 		</div>
 
