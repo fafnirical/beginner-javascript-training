@@ -1,337 +1,337 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="../../css/reveal.css">
-		<link rel="stylesheet" href="../../css/theme/black.css">
+    <link rel="stylesheet" href="../../css/reveal.css">
+    <link rel="stylesheet" href="../../css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="../../lib/css/zenburn.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-					<h1>Beginner JavaScript Training</h1>
-					<p>Wade Burelbach and Alex Ford</p>
-				</section>
-				<section>
-					<h2>Introductions</h2>
-				</section>
-				<section>
-					<section>
-						<h2>Variables</h2>
-					</section>
-					<section>
-						<h3>The <code>var</code> statement</h3>
-						<p>The "old" (ES5) way of declaring variables</p>
-						<pre><code data-trim class="lang-js">
-							var a;
-							var b = 1;
-						</code></pre>
-					</section>
-					<section>
-						<h3>Always declare your variables</h3>
-						<p>Assigning a variable that isn't declared creates an implicit global variable.</p>
-						<div class="fragment">
-							<p><strong>Don't do this.</strong></p>
-							<pre><code data-trim class="lang-js">
-								undeclared = 30;
-								console.log(window.undeclared); // 30
-							</code></pre>
-						</div>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Functions</h2>
-					</section>
-					<section>
-						<h3>Defining a function in JS</h3>
-						<pre><code data-trim class="lang-js">
-							function square(number) {
-								return number * number;
-							}
-						</code></pre>
-					</section>
-					<section>
-						<h3>Function scope</h3>
-						<p>Variables declared inside a function cannot be accessed outside the function.</p>
-						<pre><code data-trim class="lang-js">
-							var myNumber = 5;
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Beginner JavaScript Training</h1>
+          <p>Wade Burelbach and Alex Ford</p>
+        </section>
+        <section>
+          <h2>Introductions</h2>
+        </section>
+        <section>
+          <section>
+            <h2>Variables</h2>
+          </section>
+          <section>
+            <h3>The <code>var</code> statement</h3>
+            <p>The "old" (ES5) way of declaring variables</p>
+            <pre><code data-trim class="lang-js">
+              var a;
+              var b = 1;
+            </code></pre>
+          </section>
+          <section>
+            <h3>Always declare your variables</h3>
+            <p>Assigning a variable that isn't declared creates an implicit global variable.</p>
+            <div class="fragment">
+              <p><strong>Don't do this.</strong></p>
+              <pre><code data-trim class="lang-js">
+                undeclared = 30;
+                console.log(window.undeclared); // 30
+              </code></pre>
+            </div>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Functions</h2>
+          </section>
+          <section>
+            <h3>Defining a function in JS</h3>
+            <pre><code data-trim class="lang-js">
+              function square(number) {
+                return number * number;
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Function scope</h3>
+            <p>Variables declared inside a function cannot be accessed outside the function.</p>
+            <pre><code data-trim class="lang-js">
+              var myNumber = 5;
 
-							function square(number) {
-								var theSquare = number * number;
-								return theSquare;
-							}
+              function square(number) {
+                var theSquare = number * number;
+                return theSquare;
+              }
 
-							var mySquare = square(myNumber);
-							console.log(mySquare); // 25
-							console.log(theSquare); // ReferenceError: theSquare is not defined
-						</code></pre>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Variables in modern JavaScript</h2>
-					</section>
-					<section>
-						<h3>Block scope</h3>
-						<p>Scope that isn't limited just to functions, but to any sort of block (<code>if</code>, <code>for</code>, <code>while</code>, etc.)</p>
-						<pre><code data-trim class="lang-js">
-							function varTest() { // begin new block + function scope
-								var x = 1;
-								if (true) { // begin new block scope
-									// `var` is function-scoped
-									var x = 2; // same variable
-									console.log(x);
-								}
-								console.log(x);
-							}
+              var mySquare = square(myNumber);
+              console.log(mySquare); // 25
+              console.log(theSquare); // ReferenceError: theSquare is not defined
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Variables in modern JavaScript</h2>
+          </section>
+          <section>
+            <h3>Block scope</h3>
+            <p>Scope that isn't limited just to functions, but to any sort of block (<code>if</code>, <code>for</code>, <code>while</code>, etc.)</p>
+            <pre><code data-trim class="lang-js">
+              function varTest() { // begin new block + function scope
+                var x = 1;
+                if (true) { // begin new block scope
+                  // `var` is function-scoped
+                  var x = 2; // same variable
+                  console.log(x);
+                }
+                console.log(x);
+              }
 
-							function letTest() { // begin new block + function scope
-								let x = 1;
-								if (true) { // begin new block scope
-									// `let` is block-scoped
-									let x = 2; // different variable
-									console.log(x);
-								}
-								console.log(x);
-							}
-						</code></pre>
-					</section>
-					<section>
-						<h3>The <code>let</code> statement</h3>
-						<p>The "new" (ES6) way of declaring (block-scoped) variables</p>
-						<pre><code data-trim class="lang-js">
-							function varTest() {
-								var x = 1;
-								if (true) {
-									var x = 2; // same variable!
-									console.log(x); // 2
-								}
-								console.log(x); // 2
-							}
+              function letTest() { // begin new block + function scope
+                let x = 1;
+                if (true) { // begin new block scope
+                  // `let` is block-scoped
+                  let x = 2; // different variable
+                  console.log(x);
+                }
+                console.log(x);
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>The <code>let</code> statement</h3>
+            <p>The "new" (ES6) way of declaring (block-scoped) variables</p>
+            <pre><code data-trim class="lang-js">
+              function varTest() {
+                var x = 1;
+                if (true) {
+                  var x = 2; // same variable!
+                  console.log(x); // 2
+                }
+                console.log(x); // 2
+              }
 
-							function letTest() {
-								let x = 1;
-								if (true) {
-									let x = 2; // different variable
-									console.log(x); // 2
-								}
-								console.log(x); // 1
-							}
-						</code></pre>
-					</section>
-					<section>
-						<h3>The <code>const</code> statement</h3>
-						<p>Declaring constants</p>
-						<pre><code data-trim class="lang-js">
-							const a = 1;
-							a = 5; // TypeError: Assignment to constant variable
-						</code></pre>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Arrays</h2>
-						<p>Ordered lists of values</p>
-					</section>
-					<section>
-						<h3>Defining an array in JS</h3>
-						<pre><code data-trim class="lang-js">
-							let fruits = ['Apple', 'Banana'];
+              function letTest() {
+                let x = 1;
+                if (true) {
+                  let x = 2; // different variable
+                  console.log(x); // 2
+                }
+                console.log(x); // 1
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>The <code>const</code> statement</h3>
+            <p>Declaring constants</p>
+            <pre><code data-trim class="lang-js">
+              const a = 1;
+              a = 5; // TypeError: Assignment to constant variable
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Arrays</h2>
+            <p>Ordered lists of values</p>
+          </section>
+          <section>
+            <h3>Defining an array in JS</h3>
+            <pre><code data-trim class="lang-js">
+              let fruits = ['Apple', 'Banana'];
 
-							console.log(fruits.length); // 2
-						</code></pre>
-					</section>
-					<section>
-						<h3>Accessing items in an array</h3>
-						<pre><code data-trim class="lang-js">
-							let fruits = ['Apple', 'Banana'];
+              console.log(fruits.length); // 2
+            </code></pre>
+          </section>
+          <section>
+            <h3>Accessing items in an array</h3>
+            <pre><code data-trim class="lang-js">
+              let fruits = ['Apple', 'Banana'];
 
-							let first = fruits[0]; // Apple
-							let last = fruits[fruits.length - 1]; // Banana
-						</code></pre>
-					</section>
-					<section>
-						<h3>Adding values to an array</h3>
-						<pre><code data-trim class="lang-js">
-							let fruits = ['Apple', 'Banana'];
-							let length = fruits.length; // 2
+              let first = fruits[0]; // Apple
+              let last = fruits[fruits.length - 1]; // Banana
+            </code></pre>
+          </section>
+          <section>
+            <h3>Adding values to an array</h3>
+            <pre><code data-trim class="lang-js">
+              let fruits = ['Apple', 'Banana'];
+              let length = fruits.length; // 2
 
-							// Adding to the end of an array
-							length = fruits.push('Orange'); // 3
-							// ['Apple', 'Banana', 'Orange']
+              // Adding to the end of an array
+              length = fruits.push('Orange'); // 3
+              // ['Apple', 'Banana', 'Orange']
 
-							// Adding to the front of an array
-							length = fruits.unshift('Strawberry'); // 4
-							// ['Strawberry', 'Apple', 'Banana', 'Orange']
-						</code></pre>
-					</section>
-					<section>
-						<h3>Removing values from an array</h3>
-						<pre><code data-trim class="lang-js">
-							let fruits = ['Apple', 'Banana', 'Orange'];
+              // Adding to the front of an array
+              length = fruits.unshift('Strawberry'); // 4
+              // ['Strawberry', 'Apple', 'Banana', 'Orange']
+            </code></pre>
+          </section>
+          <section>
+            <h3>Removing values from an array</h3>
+            <pre><code data-trim class="lang-js">
+              let fruits = ['Apple', 'Banana', 'Orange'];
 
-							// Removing from the end of an array
-							let last = fruits.pop(); // Orange
-							// ['Apple', 'Banana']
+              // Removing from the end of an array
+              let last = fruits.pop(); // Orange
+              // ['Apple', 'Banana']
 
-							// Removing from the beginning of an array
-							let first = fruits.shift(); // Apple
-							// ['Banana']
+              // Removing from the beginning of an array
+              let first = fruits.shift(); // Apple
+              // ['Banana']
 
-							// Removing an item by index position
-							let removedItem = fruits.splice(0, 1); // Banana
-							// []
-						</code></pre>
-					</section>
-					<section>
-						<h3>Looping through an array</h3>
-						<pre><code data-trim class="lang-js">
-							let fruits = ['Apple', 'Banana'];
+              // Removing an item by index position
+              let removedItem = fruits.splice(0, 1); // Banana
+              // []
+            </code></pre>
+          </section>
+          <section>
+            <h3>Looping through an array</h3>
+            <pre><code data-trim class="lang-js">
+              let fruits = ['Apple', 'Banana'];
 
-							// use `Array.forEach` if you need to access each item
-							fruits.forEach(function (item, index, array) {
-								console.log(item, index);
-							});
+              // use `Array.forEach` if you need to access each item
+              fruits.forEach(function (item, index, array) {
+                console.log(item, index);
+              });
 
-							// use `Array.map` if you need to modify each item
-							fruits.map(function (item, index, array) {
-								return item.toLowerCase();
-							});
-						</code></pre>
-					</section>
-					<section>
-						<h3>Searching an array</h3>
-						<pre><code data-trim class="lang-js">
-							let foo = ['bar', 'baz'];
+              // use `Array.map` if you need to modify each item
+              fruits.map(function (item, index, array) {
+                return item.toLowerCase();
+              });
+            </code></pre>
+          </section>
+          <section>
+            <h3>Searching an array</h3>
+            <pre><code data-trim class="lang-js">
+              let foo = ['bar', 'baz'];
 
-							console.log(foo.indexOf('bar')); // 0
-							console.log(foo.indexOf('baz')); // 1
+              console.log(foo.indexOf('bar')); // 0
+              console.log(foo.indexOf('baz')); // 1
 
-							console.log(foo.indexOf('bat')); // -1 (not found)
-						</code></pre>
-						<p>Related methods:</p>
-						<ul>
-							<li><code>Array.lastIndexOf()</code></li>
-							<li><code>Array.includes()</code></li>
-						</ul>
-					</section>
-					<section>
-						<h3>Combining arrays</h3>
-						<pre><code data-trim class="lang-js">
-							let foo = ['bar', 'baz'];
-							let bar = ['bat', 'foobar'];
+              console.log(foo.indexOf('bat')); // -1 (not found)
+            </code></pre>
+            <p>Related methods:</p>
+            <ul>
+              <li><code>Array.lastIndexOf()</code></li>
+              <li><code>Array.includes()</code></li>
+            </ul>
+          </section>
+          <section>
+            <h3>Combining arrays</h3>
+            <pre><code data-trim class="lang-js">
+              let foo = ['bar', 'baz'];
+              let bar = ['bat', 'foobar'];
 
-							let foobar = foo.concat(bar);
-						</code></pre>
-					</section>
-					<section>
-						<h3>Additional Array resources</h3>
-						<ul>
-							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array on MDN</a></li>
-						</ul>
-					</section>
-				</section>
-				<section>
-					<section>
-						<h2>Objects</h2>
-						<p>In JavaScript, most things are objects.</p>
-					</section>
-					<section>
-						<h3>What are Objects in JavaScript?</h3>
-						<ul>
-							<li>Objects are dynamic collections of properties</li>
-							<li>Properties are associations between a name (key) and a value</li>
-							<li>Objects in JavaScript are similar to <code>stdClass</code> in PHP</li>
-						</ul>
-					</section>
-					<section>
-						<h3>Defining an Object in JavaScript</h3>
-						<pre><code data-trim class="lang-js">
-							let myCar = new Object();
-							myCar.make = 'Ford';
-							myCar.model = 'Mustang';
-							myCar.year = 1969;
-							myCar.revEngine = function() {
-								console.log('VROOM VROOM!');
-							};
-						</code></pre>
-					</section>
-					<section>
-						<h3>Square bracket notation</h3>
-						<p>You can also assign properties with square bracket notation</p>
-						<pre><code data-trim class="lang-js">
-							let myCar = new Object();
-							myCar['make'] = 'Ford';
-							myCar['model'] = 'Mustang';
-							myCar['year'] = 1969;
-							myCar['revEngine'] = function() {
-								console.log('VROOM VROOM!');
-							};
+              let foobar = foo.concat(bar);
+            </code></pre>
+          </section>
+          <section>
+            <h3>Additional Array resources</h3>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array on MDN</a></li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Objects</h2>
+            <p>In JavaScript, most things are objects.</p>
+          </section>
+          <section>
+            <h3>What are Objects in JavaScript?</h3>
+            <ul>
+              <li>Objects are dynamic collections of properties</li>
+              <li>Properties are associations between a name (key) and a value</li>
+              <li>Objects in JavaScript are similar to <code>stdClass</code> in PHP</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Defining an Object in JavaScript</h3>
+            <pre><code data-trim class="lang-js">
+              let myCar = new Object();
+              myCar.make = 'Ford';
+              myCar.model = 'Mustang';
+              myCar.year = 1969;
+              myCar.revEngine = function() {
+                console.log('VROOM VROOM!');
+              };
+            </code></pre>
+          </section>
+          <section>
+            <h3>Square bracket notation</h3>
+            <p>You can also assign properties with square bracket notation</p>
+            <pre><code data-trim class="lang-js">
+              let myCar = new Object();
+              myCar['make'] = 'Ford';
+              myCar['model'] = 'Mustang';
+              myCar['year'] = 1969;
+              myCar['revEngine'] = function() {
+                console.log('VROOM VROOM!');
+              };
 
-							let variableProperty = 'color';
-							myCar[variableProperty] = 'red';
+              let variableProperty = 'color';
+              myCar[variableProperty] = 'red';
 
-							console.log(myCar);
-						</code></pre>
-						<p>Square bracket notation is the only way to add variable property names</p>
-					</section>
-					<section>
-						<h3>Creating new objects with object literal notation</h3>
-						<p>The most common way to create an object in JS</p>
-						<pre><code data-trim class="lang-js">
-							let myCar = {
-								make: 'Ford',
-								model: 'Mustang',
-								year: 1969,
-								revEngine: function() {
-									console.log('VROOM VROOM!');
-								},
-							};
-						</code></pre>
-					</section>
-					<section>
-						<h3>Additional Object resources</h3>
-						<ul>
-							<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object on MDN</a></li>
-						</ul>
-					</section>
-				</section>
-			</div>
-		</div>
+              console.log(myCar);
+            </code></pre>
+            <p>Square bracket notation is the only way to add variable property names</p>
+          </section>
+          <section>
+            <h3>Creating new objects with object literal notation</h3>
+            <p>The most common way to create an object in JS</p>
+            <pre><code data-trim class="lang-js">
+              let myCar = {
+                make: 'Ford',
+                model: 'Mustang',
+                year: 1969,
+                revEngine: function() {
+                  console.log('VROOM VROOM!');
+                },
+              };
+            </code></pre>
+          </section>
+          <section>
+            <h3>Additional Object resources</h3>
+            <ul>
+              <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object on MDN</a></li>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </div>
 
-		<script src="../../lib/js/head.min.js"></script>
-		<script src="../../js/reveal.js"></script>
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				history: true,
-				dependencies: [
-					{ src: '../../plugin/markdown/marked.js' },
-					{ src: '../../plugin/markdown/markdown.js' },
-					{ src: '../../plugin/notes/notes.js', async: true },
-					{ src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
-		</script>
-	</body>
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        dependencies: [
+          { src: '../../plugin/markdown/marked.js' },
+          { src: '../../plugin/markdown/markdown.js' },
+          { src: '../../plugin/notes/notes.js', async: true },
+          { src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
 </html>
