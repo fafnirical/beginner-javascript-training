@@ -112,6 +112,7 @@
 
               console.log(a); // 1
               foobar(); // 10
+              console.log(a); // 1, again
 
               console.log(b); // ReferenceError: b is not defined
             </code></pre>
@@ -122,20 +123,20 @@
             <pre><code data-trim class="lang-js">
               function varTest() { // <-- new block, new function
                 var x = 1;
-                if (true) { // <-- new block 
+                if (true) { // <-- new block
                   var x = 2; // same variable
-                  console.log(x);
+                  console.log(x); // 2
                 }
-                console.log(x);
+                console.log(x); // 2
               }
 
               function letTest() { // <-- new block, new function
                 let x = 1;
                 if (true) { // <-- new block
                   let x = 2; // different variable
-                  console.log(x);
+                  console.log(x); // 2
                 }
-                console.log(x);
+                console.log(x); // 1
               }
             </code></pre>
           </section>
@@ -211,6 +212,11 @@
             </code></pre>
           </section>
           <section>
+            <h3>Viewing scopes</h3>
+            <p>Browser debuggers will show you the scopes a function can see:</p>
+            <div><img src="slides - chrome scope.png" /></div>
+          </section>
+          <section>
             <h3>Immediately Invoked Function Expressions (IIFEs)</h3>
             <p>IIFEs are useful when you want to avoid polluting the global scope.</p>
             <pre><code data-trim class="lang-js">
@@ -270,25 +276,25 @@
             <p><code>this</code> is a binding, set at runtime</p>
           </section>
           <section>
-            <h3>Call-stacks and call-sites</h3>
-            <p>To understand <code>this</code>, we have to understand the call-site: where the function is <strong>called</strong> (not declared)</p>
+            <h3>Call stacks and call sites</h3>
+            <p>To understand <code>this</code>, we have to understand the call site: where the function is <strong>called</strong> (not declared)</p>
             <pre><code data-trim class="lang-js">
               function foo() {
-                // call-stack: `foo` (call-site in global scope)
+                // call stack: `foo` (call site in global scope)
                 console.log('foo');
-                bar(); // <-- call-site for `bar`
+                bar(); // <-- call site for `bar`
               }
               function bar() {
-                // call-stack: `foo` -> `bar` (call-site in `foo` scope)
+                // call stack: `foo` -> `bar` (call site in `foo` scope)
                 console.log('bar');
-                baz(); // <-- call-site for `baz`
+                baz(); // <-- call site for `baz`
               }
               function baz() {
-                // call-stack: `foo` -> `bar` -> `baz` (call-site in `bar` scope)
+                // call stack: `foo` -> `bar` -> `baz` (call site in `bar` scope)
                 console.log('baz');
               }
 
-              foo(); // <-- call-site for `foo`
+              foo(); // <-- call site for `foo`
             </code></pre>
           </section>
           <section>
@@ -304,11 +310,11 @@
               // `foo` called with a plain reference here
               foo(); // 1
             </code></pre>
-            <small>*Note: this applies only when <code>this</code>is referenced in non-strict mode.</small>
+            <small>*Note: this applies only when <code>this</code> is referenced in non-strict mode.</small>
           </section>
           <section>
             <h3>Implicit Binding</h3>
-            <p><code>this</code> can refer to the call-site's context object</p>
+            <p><code>this</code> can refer to the call site's context object</p>
             <pre><code data-trim class="lang-js">
               function foo() {
                 console.log(this.a);
@@ -325,7 +331,7 @@
           </section>
           <section>
             <h3>Implicit Binding (continued)</h3>
-            <p>Only the top level of an object property reference chain matters to the call-site</p>
+            <p>Only the top level of an object property reference chain matters to the call site</p>
             <pre><code data-trim class="lang-js">
               function foo() {
                 console.log(this.a);
@@ -348,16 +354,16 @@
             <h3>Explicit Binding</h3>
             <p>Explicitly setting the function's context with <code>Function::call()</code> and <code>Function::apply()</code></p>
             <pre><code data-trim class="lang-js">
-              function foo() {
-                console.log(this.a);
+              function foo(x, y) {
+                console.log(this.a, x, y);
               }
 
               let obj = {
                 a: 1,
               };
 
-              foo.call(obj); // 1
-              foo.apply(obj);
+              foo.call(obj, 2, 3); // 1, 2, 3
+              foo.apply(obj, [2, 3]); // 1, 2, 3
             </code></pre>
             <p>
               <code>call()</code> takes additional parameters as arguments,<br>
@@ -375,7 +381,7 @@
               let obj = {
                 a: 1,
               };
-              
+
               let boundFoo = foo.bind(obj);
 
               // Call as normal!
@@ -444,16 +450,87 @@
         </section>
         <section>
           <section>
-            <h2>ES6: Classes</h2>
+            <h2>Object Orientation</h2>
+          </section>
+          <section>
+            <h3>Constructors</h3>
+            <p>JavaScript objects are created with the <code>new</code> operator and a special function called a constructor:</p>
+            <pre><code data-trim class="lang-js">
+              // Capital letters indicate this is a constructor function
+              function Point(x, y) {
+                this.x = x;
+                this.y = y;
+              }
+
+              console.log(new Point(1, 2)); // { x: 1, y: 2 }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Constructors as Classes</h3>
+            <p>All JavaScript constructors have a property called <code>prototype</code> that can be used to add methods:</p>
+            <pre><code data-trim class="lang-js">
+              function Rectangle(width, height) {
+                this.width = width;
+                this.height = height;
+              }
+
+              // All Rectangle instances will have this method available
+              Rectangle.prototype.getArea = function () {
+                return this.width * this.height;
+              }
+
+              const rect = new Rectangle(2, 5);
+              console.log(rect.getArea()); // 10
+            </code></pre>
+          </section>
+          <section>
+            <h3>Object Inheritance</h3>
+            <ul>
+              <li>JavaScript does not have "true" classes</li>
+              <li>Each object contains information about its own ancestor(s)</li>
+              <li>If a property is not found on the object itself, its ancestors are queried</li>
+            </ul>
+            <pre><code data-trim class="lang-js">
+              console.log(Object.prototype.toString); // Function (...)
+
+              // `myObj` does not explicitly define `toString`...
+              const myObj = {};
+
+              // ... but we found it on Object.prototype:
+              console.log(myObj.toString); // Function (...)
+            </code></pre>
+          </section>
+          <section>
+            <h3>Viewing Inheritance:<br />The Hard Way</h3>
+            <p>The standard <code>Object.getPrototypeOf()</code> function will show an object's ancestor:</p>
+            <pre><code data-trim class="lang-js">
+              const myObj = {};
+
+              // Logs true
+              console.log(Object.getPrototypeOf(myObj) === Object.prototype);
+            </code></pre>
+          </section>
+          <section>
+            <h3>Viewing Inheritance:<br />The Easy Way</h3>
+            <ul>
+              <li>ES6 requires that browsers support the <code>__proto__</code> property</li>
+              <li>This property can be viewed with any debugging tool</li>
+            </ul>
+            <img src="slides - chrome proto.png" />
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>ES6 Classes</h2>
           </section>
           <section>
             <h3>Creating an ES6 class</h3>
             <ul>
-              <li>Classes are similar to objects, with methods and properties</li>
-              <li>Initial properties are defined in a special method called the constructor</li>
+              <li>ES6 classes are shorthand for creating new constructor functions</li>
+              <li>Methods (and the constructor itself) are defined with this notation:</li>
             </ul>
             <pre><code data-trim class="lang-js">
-              class Animal {
+              class Rectangle {
                 constructor(width, height) {
                   this.width = width;
                   this.height = height;
@@ -483,9 +560,13 @@
               }
               class Square extends Rectangle {
                 constructor(size) {
-                  super(size, size); // `super` calls the parent's constructor method here
+                  // `super` calls the parent's constructor method here
+                  super(size, size);
                 }
               }
+
+              const mySquare = new Square(5);
+              console.log(mySquare.getArea()); // 25
             </code></pre>
           </section>
           <section>
@@ -501,8 +582,9 @@
                 }
               }
               class Dog extends Animal {
-                speak(size) {
-                  super.speak(); // `super.speak()` calls the parent's `speak()` method here
+                speak() {
+                  // `super.speak()` calls the parent's `speak()` method here
+                  super.speak();
                   console.log(this.name + ' barks.');
                 }
               }
