@@ -1,0 +1,533 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../../css/reveal.css">
+    <link rel="stylesheet" href="../../css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Beginner JavaScript Training: Lesson 2</h1>
+          <p>Wade Burelbach and Alex Ford</p>
+        </section>
+        <section>
+          <section>
+            <h2>Functions</h2>
+          </section>
+          <section>
+            <h3>Defining a function in JS</h3>
+            <pre><code data-trim class="lang-js">
+              function square(number) {
+                return number * number;
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Using a function in JS</h3>
+            <p>The same as in PHP</p>
+            <pre><code data-trim class="lang-js">
+              function square(number) {
+                return number * number;
+              }
+
+              const squareOf5 = square(5);
+              console.log(squareOf5);
+            </code></pre>
+          </section>
+          <section>
+            <h3>Using an object's functions (methods)</h3>
+            <p>Similar to class-based PHP, different syntax</p>
+            <p>Just like accessing an object's properties in JavaScript (using dot or square bracket notation)</p>
+            <pre><code data-trim class="lang-js">
+              const myMath = {
+                square: function square(number) {
+                  return number * number;
+                }
+              };
+
+              const squareOf5 = myMath.square(5); // 25
+              console.log(squareOf5); // 25
+
+              console.log(myMath.square(5) === myMath['square'](5)); // true
+            </code></pre>
+          </section>
+          <section>
+            <h3>Named vs. anonymous functions</h3>
+            <ul>
+              <li>
+                Functions are named when they are declared:
+                <pre><code data-trim class="lang-js">
+                  function apollo13() {
+                    throw new Error("Houston, we've had a problem here.");
+                  }
+                </code></pre>
+              </li>
+              <li>
+                Callbacks are usually anonymous functions:
+                <pre><code data-trim class="lang-js">
+                  setTimeout(function () {
+                    throw new Error('Anonymous callback had an error.');
+                  }, 1000);
+                </code></pre>
+              </li>
+            </ul>
+            <p>Named functions are easier to debug, since the name appears in stack traces</p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Scope</h2>
+            <p>(Reference: <a href="https://github.com/getify/You-Dont-Know-JS/tree/master/scope%20%26%20closures">You Don't Know JS: Scope & Closures</a>)</p>
+          </section>
+          <section>
+            <h3>Function scope</h3>
+            <p>Variables defined with <code>var</code> are scoped to the function</p>
+            <pre><code data-trim class="lang-js">
+              var a = 1;
+
+              function foobar() {
+                var a = 10;
+                console.log(a);
+
+                var b = 100;
+              }
+
+              console.log(a); // 1
+              foobar(); // 10
+
+              console.log(b); // ReferenceError: b is not defined
+            </code></pre>
+          </section>
+          <section>
+            <h3>Block scope</h3>
+            <p>Variables defined with <code>let</code> and <code>const</code> are scoped to the block</p>
+            <pre><code data-trim class="lang-js">
+              function varTest() { // <-- new block, new function
+                var x = 1;
+                if (true) { // <-- new block 
+                  var x = 2; // same variable
+                  console.log(x);
+                }
+                console.log(x);
+              }
+
+              function letTest() { // <-- new block, new function
+                let x = 1;
+                if (true) { // <-- new block
+                  let x = 2; // different variable
+                  console.log(x);
+                }
+                console.log(x);
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Nested scopes</h3>
+            <pre><code data-trim class="lang-js">
+              function foo(a) {
+                var b = a * 2;
+
+                function bar(c) {
+                  console.log(a, b, c);
+                }
+
+                bar(b * 3);
+              }
+
+              foo(2); // 2 4 12
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Scope 1 encompasses the global scope, and has just one identifier in it: <code>foo</code>.</li>
+                <li>Scope 2 encompasses the scope of <code>foo</code>, which includes the three identifiers: <code>a</code>, <code>bar</code> and <code>b</code>.</li>
+                <li>Scope 3 encompasses the scope of <code>bar</code>, and it includes just one identifier: <code>c</code>.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Nested scopes (continued)</h3>
+            <figure>
+              <img width="75%" src="https://github.com/getify/You-Dont-Know-JS/raw/master/scope%20%26%20closures/fig2.png" alt="Function scope 1 encompasses the global scope, which has only 'foo' in it. Function scope 2 encompasses the scope of 'foo', and includes the identifiers 'a', 'bar', and 'b'. Function scope 3 encompasses the scope of 'bar', and includes only 'c'.">
+              <figcaption><small>Credit: <a href="https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md#lex-time">You Don't Know JS: Scope & Closures</a></small></figcaption>
+            </figure>
+            <aside class="notes">
+              <ul>
+                <li>Scope 1 encompasses the global scope, and has just one identifier in it: <code>foo</code>.</li>
+                <li>Scope 2 encompasses the scope of <code>foo</code>, which includes the three identifiers: <code>a</code>, <code>bar</code> and <code>b</code>.</li>
+                <li>Scope 3 encompasses the scope of <code>bar</code>, and it includes just one identifier: <code>c</code>.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h3>Closures</h3>
+            <ul>
+              <li>When a function remembers and accesses its scope even when it executes outside that scope</li>
+              <li>Useful for saving state for a function to use later</li>
+            </ul>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                let a = 2;
+
+                function bar() {
+                  console.log(a);
+                }
+
+                return bar;
+              }
+
+              var baz = foo();
+
+              baz(); // 2
+            </code></pre>
+          </section>
+          <section>
+            <h3>A more realistic closure example</h3>
+            <pre><code data-trim class="lang-js">
+              function waitMessage(time, message) {
+                setTimeout(function timer() {
+                  console.log(message);
+                }, time);
+              }
+
+              waitMessage(1000, "I'm waiting!");
+            </code></pre>
+          </section>
+          <section>
+            <h3>Immediately Invoked Function Expressions (IIFEs)</h3>
+            <p>IIFEs are useful when you want to avoid polluting the global scope.</p>
+            <pre><code data-trim class="lang-js">
+              (function () {
+                let a = 10;
+                // do stuff...
+              }());
+
+              (function () {
+                let a = 10;
+              })(); // this works too
+            </code></pre>
+          </section>
+          <section>
+            <h3>IIFEs (continued)</h3>
+            <p>You can pass outer-scope variables to IIFEs, and rename them for the inner scope.</p>
+            <pre><code data-trim class="lang-js">
+              (function ($) {
+                $(document).ready(function () {
+                  // ...do stuff
+                });
+              }(jQuery));
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2><code>this</code>, <code>that</code>, and the other thing</h2>
+            <p>(Reference: <a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes">You Don't Know JS: <i>this</i> & Object Prototypes</a>)</p>
+          </section>
+          <section>
+            <h3>Why do I care about <code>this</code>?</h3>
+            <pre><code data-trim class="lang-js">
+              let person = {
+                getFullName: function () {
+                  return this.firstName + ' ' + this.lastName;
+                },
+              };
+
+              person.firstName = 'Wade';
+              person.lastName = 'Burelbach';
+              console.log(person.getFullName()); // Wade Burelbach
+
+              person.firstName = 'Alex';
+              person.lastName = 'Ford';
+              console.log(person.getFullName()); // Alex Ford
+            </code></pre>
+            <p>Allows for running the same function against different contexts instead of requiring different functions</p>
+          </section>
+          <section>
+            <h3><code>this</code> is weird and often misunderstood</h3>
+            <p><code>this</code> is not:</p>
+            <ul>
+              <li>the function itself</li>
+              <li>the function's scope</li>
+            </ul>
+            <p><code>this</code> is a binding, set at runtime</p>
+          </section>
+          <section>
+            <h3>Call-stacks and call-sites</h3>
+            <p>To understand <code>this</code>, we have to understand the call-site: where the function is <strong>called</strong> (not declared)</p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                // call-stack: `foo` (call-site in global scope)
+                console.log('foo');
+                bar(); // <-- call-site for `bar`
+              }
+              function bar() {
+                // call-stack: `foo` -> `bar` (call-site in `foo` scope)
+                console.log('bar');
+                baz(); // <-- call-site for `baz`
+              }
+              function baz() {
+                // call-stack: `foo` -> `bar` -> `baz` (call-site in `bar` scope)
+                console.log('baz');
+              }
+
+              foo(); // <-- call-site for `foo`
+            </code></pre>
+          </section>
+          <section>
+            <h3>Default binding</h3>
+            <p><code>this</code> can refer to the global object* when called plainly</p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                console.log(this.a);
+              }
+
+              var a = 1;
+
+              // `foo` called with a plain reference here
+              foo(); // 1
+            </code></pre>
+            <small>*Note: this applies only when <code>this</code>is referenced in non-strict mode.</small>
+          </section>
+          <section>
+            <h3>Implicit Binding</h3>
+            <p><code>this</code> can refer to the call-site's context object</p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                console.log(this.a);
+              }
+
+              let obj = {
+                a: 1,
+                foo: foo,
+              };
+
+              // `foo` called from `obj` context
+              obj.foo(); // 1
+            </code></pre>
+          </section>
+          <section>
+            <h3>Implicit Binding (continued)</h3>
+            <p>Only the top level of an object property reference chain matters to the call-site</p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                console.log(this.a);
+              }
+
+              let obj2 = {
+                a: 2,
+                foo: foo,
+              };
+
+              let obj1 = {
+                a: 1,
+                obj2: obj2,
+              }
+
+              obj1.obj2.foo(); // 2
+            </code></pre>
+          </section>
+          <section>
+            <h3>Explicit Binding</h3>
+            <p>Explicitly setting the function's context with <code>Function::call()</code> and <code>Function::apply()</code></p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                console.log(this.a);
+              }
+
+              let obj = {
+                a: 1,
+              };
+
+              foo.call(obj); // 1
+              foo.apply(obj);
+            </code></pre>
+            <p>
+              <code>call()</code> takes additional parameters as arguments,<br>
+              <code>apply()</code> takes additional parameters as a single array
+            </p>
+          </section>
+          <section>
+            <h3>Hard Binding</h3>
+            <p>Creating bound functions with <code>Function::bind()</code></p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                console.log(this.a);
+              }
+
+              let obj = {
+                a: 1,
+              };
+              
+              let boundFoo = foo.bind(obj);
+
+              // Call as normal!
+              boundFoo(); // 1
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>ES6: Arrow functions</h2>
+          </section>
+          <section>
+            <h3>Arrow functions don't bind their own <code>this</code></h3>
+            <p>Instead, they adopt from their parent context</p>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                return (a) => {
+                  // `this` is adopted from `foo`
+                  console.log(this.a);
+                }
+              }
+              let obj1 = {
+                a: 1,
+              };
+              let obj2 = {
+                a: 2,
+              };
+              let bar = foo.call(obj1);
+              bar.call(obj2); // 1, not 2
+            </code></pre>
+          </section>
+          <section>
+            <h3>Arrow functions are useful for callbacks</h3>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                setTimeout(() => {
+                  // `this` here is adopted from `foo`
+                  console.log(this.a);
+                }, 1000);
+              }
+
+              let obj = {
+                a: 1,
+              };
+
+              foo.call(obj); // 1
+            </code></pre>
+          </section>
+          <section>
+            <h3>Pre-ES6 arrow function(ality)</h3>
+            <pre><code data-trim class="lang-js">
+              function foo() {
+                var self = this; // sometimes also `var that = this;`
+                setTimeout(
+                  console.log(self.a);
+                }, 1000);
+              }
+
+              let obj = {
+                a: 1,
+              };
+
+              foo.call(obj); // 1
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>ES6: Classes</h2>
+          </section>
+          <section>
+            <h3>Creating an ES6 class</h3>
+            <ul>
+              <li>Classes are similar to objects, with methods and properties</li>
+              <li>Initial properties are defined in a special method called the constructor</li>
+            </ul>
+            <pre><code data-trim class="lang-js">
+              class Animal {
+                constructor(width, height) {
+                  this.width = width;
+                  this.height = height;
+                }
+
+                getArea() {
+                  return this.width * this.height;
+                }
+              }
+
+              let myRectangle = new Rectangle(3, 4);
+              console.log(myRectangle.getArea()); // 12
+            </code></pre>
+          </section>
+          <section>
+            <h3>ES6 classes and inheritance</h3>
+            <p>ES6 classes can inherit (and override) from a parent</p>
+            <pre><code data-trim class="lang-js">
+              class Rectangle {
+                constructor(width, height) {
+                  this.width = width;
+                  this.height = height;
+                }
+                getArea() {
+                  return this.width * this.height;
+                }
+              }
+              class Square extends Rectangle {
+                constructor(size) {
+                  super(size, size); // `super` calls the parent's constructor method here
+                }
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Other uses of <code>super</code></h3>
+            <p><code>super</code> can call more than just the parent's contructor</p>
+            <pre><code data-trim class="lang-js">
+              class Animal {
+                constructor(name) {
+                  this.name = name;
+                }
+                speak() {
+                  console.log(this.name + ' makes some noise.');
+                }
+              }
+              class Dog extends Animal {
+                speak(size) {
+                  super.speak(); // `super.speak()` calls the parent's `speak()` method here
+                  console.log(this.name + ' barks.');
+                }
+              }
+            </code></pre>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        dependencies: [
+          { src: '../../plugin/markdown/marked.js' },
+          { src: '../../plugin/markdown/markdown.js' },
+          { src: '../../plugin/notes/notes.js', async: true },
+          { src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
