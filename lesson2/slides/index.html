@@ -501,17 +501,7 @@
             </code></pre>
           </section>
           <section>
-            <h3>Viewing Inheritance:<br />The Hard Way</h3>
-            <p>The standard <code>Object.getPrototypeOf()</code> function will show an object's ancestor:</p>
-            <pre><code data-trim class="lang-js">
-              const myObj = {};
-
-              // Logs true
-              console.log(Object.getPrototypeOf(myObj) === Object.prototype);
-            </code></pre>
-          </section>
-          <section>
-            <h3>Viewing Inheritance:<br />The Easy Way</h3>
+            <h3>Viewing Inheritance</h3>
             <ul>
               <li>ES6 requires that browsers support the <code>__proto__</code> property</li>
               <li>This property can be viewed with any debugging tool</li>
