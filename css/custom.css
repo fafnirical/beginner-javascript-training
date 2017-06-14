@@ -1,3 +1,14 @@
+.index {
+  overflow: auto;
+}
+
+.index .reveal {
+  font-size: 24px;
+  width: 80%;
+  margin: auto;
+  overflow: visible;
+}
+
 .index h1,
 .index h2,
 .index h3,
@@ -8,5 +19,6 @@
 
 .index ol,
 .index ul {
+  display: block;
   line-height: normal;
 }
