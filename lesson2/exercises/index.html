@@ -26,10 +26,35 @@
   <body>
     <div class="reveal index">
       <h2>Lesson 2 Exercises</h2>
-
       <ol>
-        <li><a href="http://marijnhaverbeke.nl/talks/es6_falsyvalues2015/exercises/#Point">http://marijnhaverbeke.nl/talks/es6_falsyvalues2015/exercises/#Point</a></li>
-        <li><a href="http://marijnhaverbeke.nl/talks/es6_falsyvalues2015/exercises/#Speaker_upgrade">http://marijnhaverbeke.nl/talks/es6_falsyvalues2015/exercises/#Speaker_upgrade</a></li>
+        <li>
+          <p>Create an ATM class.</p>
+          <p>It should have the following properties:</p>
+          <ul>
+            <li><code>type</code> (e.g., "checking"), which should be determined by some input</li>
+            <li><code>money</code>, which should start at <code>0</code></li>
+            <li><code>transactionHistory</code>, which should track of withdrawals and deposits made the account (indicate whether the transaction was a withdrawal or deposit)</li>
+          </ul>
+          <p>It should have the following methods:</p>
+          <ul>
+            <li><code>deposit()</code>, which should increase the money in the account by the input amount</li>
+            <li><code>withdraw()</code>, which should decrease the money in the account by the input amount</li>
+            <li><code>checkBalance()</code>, which should print the amount of money in the bank to the console</li>
+          </ul>
+        </li>
+        <li>Create the same ATM class from the previous exercise using object prototypes.</li>
+        <li>
+          <p>(Bonus) Give the ATM class (or object prototype, if you prefer) some overdraft protection via a <code>backupAccount</code> property that can (optionally) contain a reference to another instance of the class, determined by input.</p>
+          <ul>
+            <li>Whenever an ATM's balance would go below zero, it should trigger a withdrawal from the backup account equal to the overdraft.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>Suggested Reading/Watching</h2>
+      <ol>
+        <li><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/scope%20%26%20closures"><i>You Don't Know JS: Scope &amp; Closures</i></a></li>
+        <li><a href="https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes"><i>You Don't Know JS: <code>this</code> &amp; Object Prototypes</i></a></li>
       </ol>
     </div>
   </body>
