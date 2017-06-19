@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../../css/reveal.css">
+    <link rel="stylesheet" href="../../css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Beginner JavaScript Training: Lesson 3</h1>
+          <p>Wade Burelbach and Alex Ford</p>
+        </section>
+        <section>
+          <h1>TypeScript</h1>
+          <p><a href="http://www.typescriptlang.org/">www.typescriptlang.org</a></p>
+        </section>
+        <section>
+          <section>
+            <h2>What is TypeScript?</h2>
+          </section>
+          <section>
+            <p>JavaScript, with optional typing</p>
+          </section>
+          <section>
+            <p>TypeScript transpiles (compiles) into JavaScript</p>
+            <p>You can choose what version of ECMASCript you want to transpile to (ES5, ES6/ES2015, ES7/ES2016, ...)</p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Why TypeScript?</h2>
+          </section>
+          <section>
+            <h3>Valid JavaScript is valid TypeScript</h3>
+            <p>Just rename from <code>.js</code> to <code>.ts</code> -- boom, TypeScript!</p>
+          </section>
+          <section>
+            <h3>Types can be implicit</h3>
+            <p>TypeScript tries to infer everything it can to give you type safety</p>
+            <pre><code data-trim class="lang-ts">
+              var foobar = 123;
+              foobar = 'bar';
+              // Type '"bar"' is not assignable to type 'number'.
+
+              // Is `foobar` supposed to be a number or a string?
+            </code></pre>
+          </section>
+          <section>
+            <h3>Types can be explicit</h3>
+            <p>You can declare types explicitly</p>
+            <pre><code data-trim class="lang-ts">
+              var foobar: number = 123;
+              // Works fine, 123 is a number
+
+              var foobar: number = 'bar';
+              // Type '"bar"' is not assignable to type 'number'.
+            </code></pre>
+          </section>
+          <section>
+            <h3>TypeScript protects you</h3>
+            <p>JavaScript has a lot of quirks.</p>
+            <pre><code data-trim class="lang-ts">
+              var foobar = [] + [];
+              // JavaScript: "", TypeScript: error
+
+              var foobar = {} + [];
+              // JavaScript: 0, TypeScript: error
+
+              var foobar = [] + {};
+              // JavaScript: "[object Object]", TypeScript: error
+
+              var foobar = {} + {};
+              // JavaScript: NaN, TypeScript: error
+
+              var foobar = 'hello' - 1;
+              // JavaScript: NaN, TypeScript: error
+            </code></pre>
+          </section>
+          <section>
+            <h3>TypeScript tooling</h3>
+            <p>With Visual Studio Code, you get "<a href="https://code.visualstudio.com/docs/editor/intellisense">IntelliSense</a>", which provides code completion like a compiled language</p>
+            <p>Other editors have plugins (<a href="https://atom.io/packages/atom-typescript">Atom</a>, <a href="https://packagecontrol.io/packages/TypeScript">Sublime Text</a>)</p>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Introduction to Types</h2>
+            <p>Reference: <a href="http://www.typescriptlang.org/docs/handbook/basic-types.html">Basic Types · TypeScript</a></p>
+          </section>
+          <section>
+            <h3>Basic TypeScript types</h3>
+            <p>TypeScript and JavaScript share "primitive" types.</p>
+            <pre><code data-trim data-noescape class="lang-ts">
+              <span class="fragment" data-fragment-index="1">let someBoolean: boolean = true;</span>
+              <span class="fragment" data-fragment-index="1">console.log(typeof someBoolean); // boolean</span>
+
+              <span class="fragment" data-fragment-index="2">let someNumber: number = 1;</span>
+              <span class="fragment" data-fragment-index="2">console.log(typeof someNumber); // number</span>
+
+              <span class="fragment" data-fragment-index="3">let someString: string = 'foobar';</span>
+              <span class="fragment" data-fragment-index="3">console.log(typeof someString); // string</span>
+            </code></pre>
+          </section>
+          <section>
+            <h3>More advanced TypeScript types</h3>
+            <pre><code data-trim data-noescape class="lang-js">
+              <span class="fragment" data-fragment-index="1">// For legacy reasons, `typeof null` returns "object".</span>
+              <span class="fragment" data-fragment-index="1">let someNull: null = null;</span>
+              <span class="fragment" data-fragment-index="1">console.log(typeof someNull); // object</span>
+
+              <span class="fragment" data-fragment-index="2">let someUndefined: undefined = undefined;</span>
+              <span class="fragment" data-fragment-index="2">console.log(typeof someUndefined); // undefined</span>
+              <span class="fragment" data-fragment-index="2">let declaredButNotSet;</span>
+              <span class="fragment" data-fragment-index="2">console.log(typeof declaredButNotSet); // undefined</span>
+
+              <span class="fragment" data-fragment-index="3">let notANumber: number = NaN;</span>
+              <span class="fragment" data-fragment-index="3">console.log(typeof notANumber); // number</span>
+              <span class="fragment" data-fragment-index="3">console.log(isNaN(notANumber)); // true</span>
+            </code></pre>
+          </section>
+          <section>
+            <h3>TypeScript Arrays</h3>
+            <pre><code data-trim data-noescape class="lang-ts">
+              <span class="fragment" data-fragment-index="1">let someNumericArray: number[] = [1, 2, 3];</span>
+              <span class="fragment" data-fragment-index="1">let someStringArray: string[] = ['foo', 'bar'];</span>
+
+              <span class="fragment" data-fragment-index="2">console.log(typeof someNumericArray); // object</span>
+
+              <span class="fragment" data-fragment-index="3">// Arrays are special objects.</span>
+              <span class="fragment" data-fragment-index="3">console.log(Array.isArray(someNumericArray)); // true</span>
+            </code></pre>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        dependencies: [
+          { src: '../../plugin/markdown/marked.js' },
+          { src: '../../plugin/markdown/markdown.js' },
+          { src: '../../plugin/notes/notes.js', async: true },
+          { src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
