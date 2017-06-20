@@ -42,6 +42,7 @@
           <section>
             <p>TypeScript transpiles (compiles) into JavaScript</p>
             <p>You can choose what version of ECMASCript you want to transpile to (ES5, ES6/ES2015, ES7/ES2016, ...)</p>
+            <p>(Transpiling means "compiling from one source language to another", in this case, to JavaScript)</p>
           </section>
         </section>
         <section>
@@ -261,6 +262,19 @@
             </code></pre>
           </section>
           <section>
+            <h3>The "any" type</h3>
+            <p>The <code>any</code> type opts out of typechecking. An untyped parameter is an implicit "any"</p>
+            <pre><code data-trim class="lang-ts">
+              function foo(arg) {
+                return arg.toLowerCase();
+              }
+
+              foo('FOOBAR'); // foobar
+              foo(5); // No compile error, but there will be a runtime error
+            </code></pre>
+            <p>These types of errors can be avoided with the "noImplicitAny" compilation option</p>
+          </section>
+          <section>
             <h3>Optional parameters</h3>
             <pre><code data-trim class="lang-ts">
               function sayHi(firstName: string, lastName?: string) {
@@ -305,6 +319,58 @@
               // Type 'string' is not assignable to type 'number'.
             </code></pre>
           </section>
+        </section>
+        <section>
+          <section>
+            <h2>TypeScript classes</h2>
+          </section>
+          <section>
+            <h3>Typed properties of classes</h3>
+            <p>Like objects, classes can also have typed properties. They can be optional and readonly as well</p>
+            <pre><code data-trim data-noescape class="lang-ts">
+              class Rectangle {
+                width: number;
+                height: number;
+
+                // The parameters here are implict "any", but shouldn't be
+                constructor(width, height) {
+                  this.width = width;
+                  this.height = height;
+                }
+                getArea() {
+                  return this.width * this.height;
+                }
+              }
+              let myRectangle = new Rectangle(5, 10);
+              <span class="fragment" data-fragment-index="1">let wrongRectangle = new Rectangle('foobar', false);</span>
+              <span class="fragment" data-fragment-index="1">// No error, need to add typings to the constructor's parameters</span>
+            </code></pre>
+          </section>
+          <section>
+            <p>Constructors, like any other function, can have parameter types</p>
+            <pre><code data-trim class="lang-ts">
+              class Rectangle {
+                width: number;
+                height: number;
+
+                constructor(width: number, height: number) {
+                  this.width = width;
+                  this.height = height;
+                }
+                getArea() {
+                  return this.width * this.height;
+                }
+              }
+              let myRectangle = new Rectangle(5, 10);
+              let wrongRectangle = new Rectangle('foobar', false);
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <h2>References</h2>
+          <ul>
+            <li><a href="http://www.typescriptlang.org/play/">TypeScript Playground</a></li>
+          </ul>
         </section>
       </div>
     </div>
