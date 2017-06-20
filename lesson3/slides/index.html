@@ -149,6 +149,151 @@
             </code></pre>
           </section>
         </section>
+        <section>
+          <section>
+            <h2>TypeScript Objects</h2>
+            <p>In TypeScript, objects' properties are also inferred. Reassigning a property to a different type will result in an error.</p>
+          </section>
+          <section>
+            <h3>Inferred object property types</h3>
+            <pre><code data-trim class="lang-ts">
+              let foobar = {
+                foo: 'foo',
+                bar: true,
+              };
+
+              foobar.foo = 'foobar';
+              foobar.bar = false;
+
+              foobar.foo = true;
+              // Type 'true' is not assignable to type 'string'.
+              // let foobar: { foo: string; bar: boolean; }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Interfaces</h3>
+            <p>We can explicitly declare object structures using interfaces.</p>
+            <pre><code data-trim class="lang-ts">
+              interface Foobar {
+                foo: string;
+                bar: boolean;
+              }
+              let foobar: Foobar = {
+                foo: 'foo',
+                bar: true,
+              };
+
+              foobar.foo = 'foobar';
+              foobar.bar = false;
+
+              foobar.foo = true;
+              // Type 'true' is not assignable to type 'string'.
+            </code></pre>
+          </section>
+          <section>
+            <h3>Interfaces with optional properties</h3>
+            <p>Not all properties have to be required</p>
+            <pre><code data-trim class="lang-ts">
+              interface Foobar {
+                foo?: string;
+                bar: boolean;
+              }
+
+              let foobar: Foobar = {
+                bar: true,
+              };
+
+              let foobar2: Foobar = {
+                foo: 'foo',
+                bar: true,
+              };
+            </code></pre>
+          </section>
+          <section>
+            <h3>Interfaces with readonly properties</h3>
+            <p>Readonly properties are modifiable only when an object is first created</p>
+            <pre><code data-trim class="lang-ts">
+              interface Foobar {
+                foo: string;
+                readonly bar: boolean;
+              }
+
+              let foobar: Foobar = {
+                foo: 'foo',
+                bar: true,
+              };
+
+              foobar.foo = 'still modifiable';
+              foobar.bar = false;
+              // Cannot assign to 'bar' because it is a constant or a read-only property.
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>TypeScript functions</h2>
+          </section>
+          <section>
+            <h3>Typed parameters</h3>
+            <pre><code data-trim data-noescape class="lang-ts">
+              function sayHi(name: string) {
+                console.log('Hello, ' + name);
+              }
+              sayHi('everyone'); // Hello, everyone
+
+              <span class="fragment" data-fragment-index="1">sayHi(false);</span>
+              <span class="fragment" data-fragment-index="1">// Argument of type 'false' is not assignable to parameter of type 'string'.</span>
+
+              <span class="fragment" data-fragment-index="2">sayHi();</span>
+              <span class="fragment" data-fragment-index="2">// Supplied parameters do not match any signature of call target.</span>
+            </code></pre>
+          </section>
+          <section>
+            <h3>Optional parameters</h3>
+            <pre><code data-trim class="lang-ts">
+              function sayHi(firstName: string, lastName?: string) {
+                if (lastName) {
+                  console.log('Hi, ' + firstName + ' ' + lastName);
+                } else {
+                  console.log('Hello, ' + firstName);
+                }
+              }
+
+              sayHi('Wade'); // Hello, Wade
+              sayHi('Wade', 'Burelbach'); // Hi, Wade Burelbach
+            </code></pre>
+          </section>
+          <section>
+            <h3>Default parameters</h3>
+            <p>Default parameters are part of ES6, which TypeScript supports</p>
+            <pre><code data-trim class="lang-ts">
+              function sayHi(firstName = 'everyone', lastName?: string) {
+                if (lastName) {
+                  console.log('Hi, ' + firstName + ' ' + lastName);
+                } else {
+                  console.log('Hello, ' + firstName);
+                }
+              }
+
+              sayHi(); // Hello, everyone
+              sayHi('class'); // Hello, class
+              sayHi('Wade', 'Burelbach'); // Hi, Wade Burelbach
+            </code></pre>
+          </section>
+          <section>
+            <h3>Return types</h3>
+            <p>TypeScript can infer return types most of the time, but sometimes you want (or need) to be explicit</p>
+            <pre><code data-trim class="lang-ts">
+              function highFive(name: string): string {
+                return 'High five, ' + name;
+              }
+
+              let thisWorks: string = highFive('class');
+              let thisDoesnt: number = highFive('class');
+              // Type 'string' is not assignable to type 'number'.
+            </code></pre>
+          </section>
+        </section>
       </div>
     </div>
 
