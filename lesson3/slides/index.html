@@ -171,6 +171,18 @@
             </code></pre>
           </section>
           <section>
+            <h3>Objects infer static types</h3>
+            <p>Trying to set properties that don't exist at declaration results in an error</p>
+            <pre><code data-trim class="lang-ts">
+              let x = {
+                foo: 1,
+              };
+
+              x.bar = 2;
+              // Property 'bar' does not exist on type '{ foo: number; }'.
+            </code></pre>
+          </section>
+          <section>
             <h3>Interfaces</h3>
             <p>We can explicitly declare object structures using interfaces.</p>
             <pre><code data-trim class="lang-ts">
