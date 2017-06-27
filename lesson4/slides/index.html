@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../../css/reveal.css">
+    <link rel="stylesheet" href="../../css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Beginner JavaScript Training: Lesson 4</h1>
+          <p>Wade Burelbach and Alex Ford</p>
+        </section>
+        <section>
+          <section>
+            <h2>Interfaces and Classes</h2>
+          </section>
+          <section>
+            <h3>Classes can implement Interfaces</h3>
+            <p>This is useful if you want to explicitly enforce that a class follows a particular public structure</p>
+            <pre><code data-trim class="lang-ts">
+              interface ClockInterface {
+                currentTime: Date;
+                setTime(d: Date);
+              }
+
+              class Clock implements ClockInterface {
+                currentTime: Date;
+
+                constructor(h: number, m: number) {}
+
+                setTime(d: Date) {
+                  this.currentTime = d;
+                }
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Classes can extend other Classes</h3>
+            <pre><code data-trim class="lang-ts">
+              class Rectangle {
+                height: number;
+                width: number;
+
+                constructor(height: number, width: number) {
+                  this.height = height;
+                  this.width = width;
+                }
+              }
+
+              class Square extends Rectangle {
+                constructor(size: number) {
+                  super(size, size);
+                }
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Public, private, and protected modifiers</h3>
+            <p>All properties and methods are public by default</p>
+            <p>Private properties and methods cannot be accessed outside their containing class</p>
+            <p>Protected properties and methods work like <code>private</code>, but can be accessed inside subclasses as well</p>
+            <a href="http://www.typescriptlang.org/play/#src=class%20Animal%20%7B%0D%0A%20%20private%20animalType%3A%20string%3B%0D%0A%20%20protected%20name%3A%20string%3B%0D%0A%0D%0A%20%20constructor(animalType%3A%20string%2C%20name%3A%20string)%20%7B%0D%0A%20%20%20%20this.animalType%20%3D%20animalType%3B%0D%0A%20%20%20%20this.name%20%3D%20name%3B%0D%0A%20%20%7D%0D%0A%7D%0D%0Aclass%20Cat%20extends%20Animal%20%7B%0D%0A%20%20constructor(name%3A%20string)%20%7B%0D%0A%20%20%20%20super('cat'%2C%20name)%3B%0D%0A%20%20%7D%0D%0A%20%20getName()%20%7B%0D%0A%20%20%20%20return%20this.name%3B%0D%0A%20%20%7D%0D%0A%7D#src=class%20Animal%20%7B%0D%0A%20%20private%20animalType%3A%20string%3B%0D%0A%20%20protected%20name%3A%20string%3B%0D%0A%0D%0A%20%20constructor(animalType%3A%20string%2C%20name%3A%20string)%20%7B%0D%0A%20%20%20%20this.animalType%20%3D%20animalType%3B%0D%0A%20%20%20%20this.name%20%3D%20name%3B%0D%0A%20%20%7D%0D%0A%7D%0D%0Aclass%20Cat%20extends%20Animal%20%7B%0D%0A%20%20constructor(name%3A%20string)%20%7B%0D%0A%20%20%20%20super('cat'%2C%20name)%3B%0D%0A%20%20%7D%0D%0A%20%20getName()%20%7B%0D%0A%20%20%20%20return%20this.name%3B%0D%0A%20%20%7D%0D%0A%7D">Example on TypeScript Playground</a>
+            <pre style="display:none;"><code data-trim class="lang-ts">
+              class Animal {
+                private animalType: string;
+                protected name: string;
+
+                constructor(animalType: string, name: string) {
+                  this.animalType = animalType;
+                  this.name = name;
+                }
+              }
+              class Cat extends Animal {
+                constructor(name: string) {
+                  super('cat', name);
+                }
+                getName() {
+                  return this.name;
+                }
+              }
+
+              let cat = new Cat('Fluffy');
+              // Error: Property 'animalType' is protected and only accessible within class 'Animal' and its subclasses.
+              console.log(cat.name);
+              console.log(cat.getName()); // Fluffy
+              // Error: Property 'animalType' is private and only accessible within class 'Animal'.
+              console.log(cat.animalType);
+            </code></pre>
+          </section>
+          <section>
+            <h3>Classes can be used as types</h3>
+            <pre><code data-trim class="lang-ts">
+              class Rectangle {
+                height: number;
+                width: number;
+
+                constructor(height: number, width: number) {
+                  this.height = height;
+                  this.width = width;
+                }
+              }
+
+              function rectangleFactory(height: number, width: number): Rectangle {
+                return new Rectangle(height, width);
+              }
+
+              let myRectangle = rectangleFactory(5, 10);
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Advanced TypeScript types</h2>
+            <p>Reference: <a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">TypeScript Handbook: Advanced Types</a></p>
+          </section>
+          <section>
+            <h3>Intersection types</h3>
+            <p>Intersection types combine multiple types into one</p>
+            <p>For example, <code>Person & Serializable & Logger</code> is a <code>Person</code> and a <code>Serializable</code> and a <code>Logger</code>, and has all the members of all three types</p>
+            <p>Intersection types are mostly used in mixins and other things that don't fit in a classic object-oriented model</p>
+          </section>
+          <section>
+            <h3>Union types</h3>
+            <p>Union types describe a value that can be one of several types</p>
+            <p>For example, <code>Animal | Plant</code> is a type that can be an <code>Animal</code> or a <code>Plant</code></p>
+            <p><a href="http://www.typescriptlang.org/play/#src=function%20padLeft(value%3A%20string%2C%20padding%3A%20string%20%7C%20number)%20%7B%0D%0A%20%20if%20(typeof%20padding%20%3D%3D%3D%20'string')%20%7B%0D%0A%20%20%20%20return%20padding%20%2B%20value%3B%0D%0A%20%20%7D%0D%0A%0D%0A%20%20%2F%2F%20Otherwise%2C%20it%20has%20to%20be%20a%20number%20(based%20on%20type-checking).%0D%0A%20%20if%20(typeof%20padding%20%3D%3D%3D%20'number')%20%7B%0D%0A%20%20%20%20return%20Array(padding%20%2B%201).join('%20')%20%2B%20value%3B%0D%0A%20%20%7D%0D%0A%7D%0D%0A%0D%0Aconsole.log(padLeft('padNumber'%2C%202))%3B%0D%0Aconsole.log(padLeft('padString'%2C%20'foo'))%3B%0D%0A%2F%2F%20Argument%20of%20type%20'true'%20is%20not%20assignable%20to%20parameter%20of%20type%20'string%20%7C%20number'%3B%0D%0Aconsole.log(padLeft('padFoo'%2C%20true))%3B">Example on TypeScript Playground</a></p>
+            <pre style="display: none"><code data-trim class="lang-ts" style="font-size: smaller">
+              function padLeft(value: string, padding: string | number) {
+                // If `padding` is a string, add `padding` to the left side.
+                if (typeof padding === 'string') {
+                  return padding + value;
+                }
+
+                // Otherwise, it has to be a number (based on type-checking).
+                // If `padding` is a number, add that number of spaces to the left side. 
+                if (typeof padding === 'number') {
+                  return Array(padding + 1).join(' ') + value;
+                }
+              }
+
+              console.log(padLeft('padNumber', 2)); // "  padNumber"
+              console.log(padLeft('padString', 'foo')); // foopadString
+              // Argument of type 'true' is not assignable to parameter of type 'string | number';
+              console.log(padLeft('padFoo', true));
+            </code></pre>
+          </section>
+          <section>
+            <h3>Type aliases</h3>
+            <p>Type aliases create an alias for a type. They're similar to interfaces, but can name primitives, unions, and other types (not just objects and classes)</p>
+            <pre><code data-trim class="lang-ts">
+              type Name = string;
+              type NameResolver = () =&gt; string;
+              type NameOrResolver = Name | NameResolver;
+
+              function getName(n: NameOrResolver): Name {
+                if (typeof n === 'string') {
+                  return n;
+                }
+                else {
+                  return n();
+                }
+              }
+            </code></pre>
+          </section>
+          <section>
+            <h3>Interfaces vs. type aliases</h3>
+            <p><a href="http://www.typescriptlang.org/play/#src=type%20Alias%20%3D%20%7B%20num%3A%20number%20%7D%0D%0Ainterface%20Interface%20%7B%0D%0A%20%20%20%20num%3A%20number%3B%0D%0A%7D%0D%0Adeclare%20function%20aliased(arg%3A%20Alias)%3A%20Alias%3B%0D%0Adeclare%20function%20interfaced(arg%3A%20Interface)%3A%20Interface%3B">Example</a></p>
+            <ul>
+              <li>Interfaces create a new name that is used everywhere; type aliases don't, and type lookups simply passthrough to the underlying type</li>
+              <li>Interfaces can be extended/implemented from (and can extend/implement other types); type aliases can't use inheritance</li>
+              <li>Interfaces describe objects and classes; type aliases can describe everything</li>
+            </ul>
+            <p>If possible, use an interface over a type alias</p>
+          </section>
+          <section>
+            <h3>String literal types</h3>
+            <p>String literal types allow you to specify the exact value a string must have</p>
+            <pre><code data-trim class="lang-ts">
+              type FooBarBaz = 'foo' | 'bar' | 'baz';
+
+              // OK
+              let foo: FooBarBaz = 'foo';
+              // Error: Type '"bat"' is not assignable to type 'FooBarBaz'.
+              let bat: FooBarBaz = 'bat';
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>TypeScript Generics</h2>
+            <p>Reference: <a href="https://www.typescriptlang.org/docs/handbook/generics.html">TypeScript Handbook: Generics</a></p>
+          </section>
+          <section>
+            <h3>Identity function with <code>any</code></h3>
+            <p>Suppose we wanted an identity function:</p>
+            <pre><code data-trim class="lang-ts">
+              function identity(arg: any): any {
+                return arg;
+              }
+
+              let myNumber = identity(1);
+              console.log(myNumber); // 1
+            </code></pre>
+            <p>Using <code>any</code> works, but we lose type information for what gets passed in</p>
+          </section>
+          <section>
+            <h3>Generic identity function</h3>
+            <p>To capture the type information, we use a type variable that gets filled in by the compiler when the function is called</p>
+            <pre><code data-trim class="lang-ts">
+              function identity&lt;T&gt;(arg: T): T {
+                return arg;
+              }
+
+              // Either way of calling the generic `identity` function should work.
+              // You may need to explicitly pass the type argument in complex cases.
+              let myNumber = identity&lt;number&gt;(1);
+              let myOtherNumber = identity(2);
+
+              console.log(myNumber, myOtherNumber); // 1 2
+            </code></pre>
+          </section>
+          <section>
+            <h3>Real-world Generics example</h3>
+            <p><a href="http://www.typescriptlang.org/play/#src=let%20stringArray%20%3D%20%5B'foo'%2C%20'bar'%5D%3B%0D%0Alet%20mappedArray%20%3D%20stringArray.map((value)%20%3D%3E%20%7B%0D%0A%20%20%2F%2F%20All%20items%20in%20stringArray%20are%20strings%2C%20so%20we%20know%20that%20%60value%60%0D%0A%20%20%2F%2F%20is%20a%20string%20here%2C%20and%20thus%20that%20value.length%20is%20defined!%0D%0A%20%20return%20value.length%3B%0D%0A%7D)%3B%0D%0A%0D%0Alet%20otherArray%20%3D%20%5B'foo'%2C%205%2C%20true%5D%3B%0D%0AotherArray.map((value)%20%3D%3E%20%7B%0D%0A%20%20%2F%2F%20Property%20'length'%20does%20not%20exist%20on%20type%20'string%20%7C%20number%20%7C%20boolean'.%0D%0A%20%20return%20value.length%3B%0D%0A%7D)%3B">Example on TypeScript Playground</a></p>
+            <pre><code data-trim class="lang-ts" style="font-size: smaller">
+              // From https://github.com/Microsoft/TypeScript/blob/v2.4.0/lib/lib.es5.d.ts
+              interface Array&lt;T&gt; {
+                // ...
+                /**
+                  * Calls a defined callback function on each element of an array, and
+                  *   returns an array that contains the results.
+                  * @param callbackfn A function that accepts up to three arguments. The map
+                  *   method calls the callbackfn function one time for each element in the
+                  *   array.
+                  * @param thisArg An object to which the this keyword can refer in the
+                  *   callbackfn function. If thisArg is omitted, undefined is used as the
+                  *   this value.
+                  */
+                map&lt;U&gt;(callbackfn: (value: T, index: number, array: T[]) =&gt; U, thisArg?: any): U[];
+                // ...
+              }
+
+              let stringArray = ['foo', 'bar'];
+              let mappedArray = stringArray.map((value) =&gt; {
+                // All items in stringArray are strings, so we know that `value`
+                // is a string here, and thus that value.length is defined!
+                return value.length;
+              });
+
+              let otherArray = ['foo', 5, true];
+              otherArray.map((value) =&gt; {
+                // Property 'length' does not exist on type 'string | number | boolean'.
+                return value.length;
+              });
+            </code></pre>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>ES6/TypeScript Modules</h2>
+            <p>Reference: <a href="https://www.typescriptlang.org/docs/handbook/modules.html">TypeScript Handbook: Modules</a></p>
+          </section>
+          <section>
+            <h3>Named export declarations</h3>
+            <p>Any declaration (variables, functions, classes, type aliases, interfaces) can be exported with the <code>export</code> keyword</p>
+            <pre><code data-trim class="lang-ts">
+              export interface FooBar {
+                baz: string;
+              }
+
+              export const foobar = 'FOOBAR!';
+            </code></pre>
+          </section>
+          <section>
+            <h3>Named export statements</h3>
+            <p>Exports can also happen after declaration. With export statements, you <i>can</i> also rename exports (though you should consider why you're doing this)</p>
+            <pre><code data-trim class="lang-ts">
+              interface FooBar {
+                baz: string;
+              }
+
+              export { FooBar };
+              export { FooBar as FooBarInterface };
+
+              const foobar = 'FOOBAR!';
+              export foobar;
+            </code></pre>
+          </section>
+          <section>
+            <h3>Re-exports</h3>
+            <p>Useful if you want to expose another module's exports, or combine all of a number of modules</p>
+            <p>Note that "<code>./foobar</code>" is a relative path to the file (named "<code>foobar.ts</code>")</p>
+            <pre><code data-trim class="lang-ts">
+              export { foo } from './foobar';
+            </code></pre>
+            <pre><code data-trim class="lang-ts">
+              export * from './foo';
+              export * from './bar';
+              export * from './baz';
+            </code></pre>
+          </section>
+          <section>
+            <h3>Named imports</h3>
+            <p>Like re-exports, imports (usually) use a relative path to the file, or a Node.js package name</p>
+            <pre><code data-trim class="lang-ts">
+              // Import a single export from a module
+              import { Foobar } from './foobar';
+
+              // Rename import
+              import { Foobar as AwesomeFoobar } from './foobar';
+
+              // Import entire module into a single variable
+              import * as foobarModule from './foobar';
+              const foobar = new foobarModule.Foobar();
+            </code></pre>
+          </section>
+          <section>
+            <h3>Import a module for side-effects only</h3>
+            <p>Some modules may set up some global state, and might not have any exports</p>
+            <p>Alternatively, you might be using webpack and want to import CSS into a component</p>
+            <pre><code data-trim class="lang-ts">
+              import './foo';
+
+              // Some webpack setups allow you to import CSS into a component
+              import './style.css';
+            </code></pre>
+          </section>
+          <section>
+            <h3>Default exports and imports</h3>
+            <p>Modules can optionally export a default export. There can be only one default export per module</p>
+            <pre><code data-trim class="lang-ts">
+              // src/components/Login/index.tsx
+              export default class Login {
+                // ...
+              }
+            </code></pre>
+            <pre><code data-trim class="lang-ts">
+              // src/components/App/index.tsx
+              import Login from '../Login';
+
+              // ...
+            </code></pre>
+          </section>
+          <section>
+            <h3>Import Node.js modules in TypeScript</h3>
+            <p>With TypeScript, most Node.js modules won't be treated as having a default export</p>
+            <p>Import the entire module if that's the case</p>
+            <pre><code data-trim class="lang-ts">
+              import * as React from 'react';
+            </code></pre>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <script src="../../lib/js/head.min.js"></script>
+    <script src="../../js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        history: true,
+        dependencies: [
+          { src: '../../plugin/markdown/marked.js' },
+          { src: '../../plugin/markdown/markdown.js' },
+          { src: '../../plugin/notes/notes.js', async: true },
+          { src: '../../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
