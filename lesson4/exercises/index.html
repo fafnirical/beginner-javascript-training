@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../../css/reveal.css">
+    <link rel="stylesheet" href="../../css/theme/white.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../../lib/css/zenburn.css">
+
+    <link rel="stylesheet" href="../../css/custom.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '../../css/print/pdf.css' : '../../css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body class="index">
+    <div class="reveal">
+      <h2>Lesson 4 Exercises</h2>
+      <p>For these exercises, you should follow the instructions in <a href="https://github.com/fafnirical/typescript-starter">fafirical/typescript-starter</a>. Push your code up to your fork when you're done, and submit the link to your GitHub repository.</p>
+      <ol>
+        <li>
+          <p>Modularize the code you've written in the previous exercises.</p>
+          <ul>
+            <li>Start by breaking out your ATM class into a separate file, named "Atm.ts" (in the "src" folder). Export it from this file so you can use it elsewhere.</li>
+            <li>In your "index.ts" file, use (and test) the ATM class. Create some accounts, deposit some money, withdraw some money, etc. Go wild.</li>
+            <li>Create an interface for your ATM class in "AtmInterface.ts". Export it and have your ATM class (in "Atm.ts") implement it.</li>
+          </ul>
+        </li>
+        <li>Update your ATM class method to allow only "savings" and "checking" account types to be created. (Tip: you can use string literal types for this)</li>
+      </ol>
+
+      <h2>Required Reading</h2>
+      <ol>
+        <li><a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">TypeScript Handbook: Interfaces</a></li>
+        <li><a href="https://www.typescriptlang.org/docs/handbook/classes.html">TypeScript Handbook: Classes</a></li>
+        <li><a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">TypeScript Handbook: Advanced Types</a></li>
+        <li><a href="https://www.typescriptlang.org/docs/handbook/generics.html">TypeScript Handbook: Generics</a></li>
+        <li><a href="https://www.typescriptlang.org/docs/handbook/modules.html">TypeScript Handbook: Modules</a></li>
+      </ol>
+
+      <h2>Required Watching</h2>
+      <ol>
+        <li><a href="https://egghead.io/lessons/typescript-union-types-and-type-aliases-in-typescript">Union Types and Type Aliases in TypeScript</a></li>
+        <li><a href="https://egghead.io/lessons/typescript-introduction-to-generics-in-typescript">Introduction to Generics in TypeScript</a></li>
+        <li><a href="https://egghead.io/lessons/typescript-the-basics-of-generics-in-typescript">The Basics of Generics in TypeScript</a></li>
+        <li><a href="https://egghead.io/lessons/typescript-practical-generics-in-typescript">Practical Generics in TypeScript</a></li>
+        <li><a href="https://egghead.io/lessons/ecmascript-6-es6-modules-es2015-import-and-export">ES6 Modules (ES2015) - Import and Export</a></li>
+        <li><a href="https://www.youtube.com/watch?v=_3oSWwapPKQ">JavaScript Modules: ES6 Import and Export</a></li>
+      </ol>
+    </div>
+  </body>
+</html>
